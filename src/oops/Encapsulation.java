@@ -9,6 +9,14 @@ package oops;
  *
  * It also helps achieve data hiding by restricting direct access
  * to the internal state of an object using access modifiers.
+ * 
+ * 
+ * Why we need Encapsulation?
+ * 
+ * - Avoids direct data manipulation
+ * - Centralizes validation logic
+ * - Improves maintainability
+ * - Makes code safe and predictable
  *
  *
  * Access Modifiers:

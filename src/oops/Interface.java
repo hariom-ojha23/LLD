@@ -15,23 +15,23 @@ package oops;
  * INTERFACE MEMBERS
  *
  * 1. Abstract methods
- *    - public and abstract by default
+ * - public and abstract by default
  *
  * 2. Variables
- *    - public, static and final by default
- *    - therefore, they are constants
+ * - public, static and final by default
+ * - therefore, they are constants
  *
  * 3. Default methods
- *    - have a method body
- *    - inherited by implementing classes
+ * - have a method body
+ * - inherited by implementing classes
  *
  * 4. Static methods
- *    - belong to the interface
- *    - called using InterfaceName.method()
+ * - belong to the interface
+ * - called using InterfaceName.method()
  *
  * 5. Private methods
- *    - used internally by default methods
- *    - available only inside the interface
+ * - used internally by default methods
+ * - available only inside the interface
  *
  *
  * IMPLEMENTING AN INTERFACE
@@ -56,7 +56,6 @@ package oops;
  * Payment payment = new CreditCardPayment();
  *
  */
-
 
 interface Payment {
     // public static final by default
@@ -118,7 +117,6 @@ interface SecurePayment extends Payment {
     void authenticate();
 }
 
-
 // CreditCardPayment implements two interfaces:
 // 1. SecurePayment
 // 2. Refundable
@@ -172,7 +170,6 @@ class UpiPayment implements Payment {
     }
 }
 
-
 public class Interface {
     public static void main(String[] args) {
         CreditCardPayment creditCardPayment = new CreditCardPayment();
@@ -190,7 +187,7 @@ public class Interface {
         // A parent interface reference points to a child class object.
         //
         // Reference type → Payment
-        // Object type    → UpiPayment
+        // Object type → UpiPayment
         Payment upiPayment = new UpiPayment();
 
         // Runtime polymorphism:
@@ -199,7 +196,6 @@ public class Interface {
         //
         // Here, UpiPayment's implementation of pay() is executed.
         upiPayment.pay(200.0);
-
 
         // UpiPayment has overridden the default generateReceipt()
         // method from Payment, so UpiPayment's version is executed.

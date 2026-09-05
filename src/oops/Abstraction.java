@@ -18,6 +18,14 @@ package oops;
  * - An abstract method has no implementation/body.
  * - A concrete subclass must implement all inherited abstract methods,
  * unless the subclass is also abstract.
+ * 
+ * Why Abstraction is needed?
+ * 
+ * - Clients should not depend on internal logic
+ * - Makes code easy to change and extend
+ * - Improves readability and intent
+ * - Enables plug and play behaviour
+ * - Prepares code for future growth
  */
 
 abstract class Payment {
