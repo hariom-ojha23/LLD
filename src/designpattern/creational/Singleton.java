@@ -77,11 +77,12 @@ class MethodLockSingleton {
  * 
  * 
  * - First check will skip the lock after the object exists.
- * - The second check prevents two threads that are already waiting for the lock from creating two objects.
+ * - The second check prevents two threads that are already waiting for the lock
+ * from creating two objects.
  * 
  * volatile:
- * - ensures that changes to instance are visible across threads and prevents 
- *   problematic instruction reordering during object construction.
+ * - ensures that changes to instance are visible across threads and prevents
+ * problematic instruction reordering during object construction.
  * 
  * 
  * Advantages:
@@ -149,7 +150,8 @@ class EagerSingleton {
  * - On calling getInstance():
  * - getInstance() -> SingletonHolder -> instance created -> instance returned
  * 
- * - Java's class initialization mechanism is thread-safe, so we don't need synchronized or volatile
+ * - Java's class initialization mechanism is thread-safe, so we don't need
+ * synchronized or volatile
  * 
  * Advantages:
  * - Lazy initialization
@@ -178,8 +180,10 @@ class BillPughSingleton {
  * 
  * It is implemented using enum.
  * 
- * - Java guarantees that each enum constant is instantiated only once, making it thread-safe.
- * - It also handles serialization safely prevents creating another enum instance through normal reflection
+ * - Java guarantees that each enum constant is instantiated only once, making
+ * it thread-safe.
+ * - It also handles serialization safely prevents creating another enum
+ * instance through normal reflection
  * 
  * 
  * - Usage:
@@ -201,4 +205,7 @@ enum EnumSingleton {
 }
 
 public class Singleton {
+    public static void main(String[] args) {
+
+    }
 }

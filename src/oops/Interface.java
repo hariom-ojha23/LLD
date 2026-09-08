@@ -1,7 +1,6 @@
 package oops;
 
 /**
- *
  * INTERFACE
  *
  * An interface defines a contract that implementing classes must follow.
@@ -58,38 +57,50 @@ package oops;
  */
 
 interface Payment {
-    // public static final by default
+
+    /**
+     * public static final by default.
+     */
     double taxRate = 0.15;
 
-    // public and abstract by default
+    /**
+     * public and abstract by default.
+     */
     void pay(double amount);
 
-    // Default method:
-    // - Has an implementation/body.
-    // - Implementing classes inherit this method automatically.
-    // - A class can override it if required.
+    /**
+     * Default method:
+     * - Has an implementation/body.
+     * - Implementing classes inherit this method automatically.
+     * - A class can override it if required.
+     */
     default void generateReceipt(double amount) {
         System.out.println("Payment amount $" + amount);
 
-        // calling private method
+        // Calling private method.
         System.out.println("Tax amount $" + calculateTax(amount));
 
-        // calling private method
+        // Calling private method.
         System.out.println("Total amount $" + calculateTotal(amount));
+
         System.out.println("Receipt generated successfully.");
     }
 
-    // Static method:
-    // - Belongs to the interface itself.
-    // - Called using the interface name.
-    // - Cannot be called through an object/reference.
+    /**
+     * Static method:
+     * - Belongs to the interface itself.
+     * - Called using the interface name.
+     * - Cannot be called through an object/reference.
+     */
     static void paymentInfo() {
         System.out.println("Tax rate is " + (taxRate * 100) + "%");
     }
 
-    // Private method:
-    // - Can only be accessed inside this interface.
-    // - Useful for sharing implementation between default methods.
+    /**
+     * Private method:
+     * - Can only be accessed inside this interface.
+     * - Useful for sharing implementation between default methods.
+     */
     private double calculateTax(double amount) {
         return amount * taxRate;
     }
@@ -99,70 +110,100 @@ interface Payment {
     }
 }
 
-// A separate interface defining a refund capability.
+/**
+ * A separate interface defining a refund capability.
+ */
 interface Refundable {
 
-    // Abstract method.
-    // Any concrete class implementing Refundable must implement it.
+    /**
+     * Abstract method.
+     * Any concrete class implementing Refundable must implement it.
+     */
     void refund(double amount);
 }
 
-// SecurePayment extends Payment.
-// Therefore, SecurePayment inherits the pay() contract from Payment
-// and also adds its own authenticate() contract.
+/**
+ * SECURE PAYMENT
+ *
+ * SecurePayment extends Payment.
+ * Therefore, SecurePayment inherits the pay() contract from Payment
+ * and also adds its own authenticate() contract.
+ */
 interface SecurePayment extends Payment {
 
-    // Every concrete class implementing SecurePayment
-    // must implement authenticate().
+    /**
+     * Every concrete class implementing SecurePayment
+     * must implement authenticate().
+     */
     void authenticate();
 }
 
-// CreditCardPayment implements two interfaces:
-// 1. SecurePayment
-// 2. Refundable
-//
-// SecurePayment itself extends Payment,
-// so CreditCardPayment must implement:
-// - pay()
-// - authenticate()
-// - refund()
+/**
+ * CREDIT CARD PAYMENT
+ *
+ * CreditCardPayment implements:
+ * 1. SecurePayment
+ * 2. Refundable
+ *
+ * SecurePayment itself extends Payment,
+ * so CreditCardPayment must implement:
+ * - pay()
+ * - authenticate()
+ * - refund()
+ */
 class CreditCardPayment implements SecurePayment, Refundable {
 
-    // Implementation of the abstract pay() method
-    // inherited from Payment.
+    /**
+     * Implementation of the abstract pay() method
+     * inherited from Payment.
+     */
     @Override
     public void pay(double amount) {
         System.out.println("Processing credit card payment of $" + amount);
     }
 
-    // Implementation of the authenticate() method
-    // defined in SecurePayment.
+    /**
+     * Implementation of the authenticate() method
+     * defined in SecurePayment.
+     */
     @Override
     public void authenticate() {
         System.out.println("Authenticating credit card payment credentials...");
     }
 
-    // Implementation of the refund() method
-    // defined in Refundable.
+    /**
+     * Implementation of the refund() method
+     * defined in Refundable.
+     */
     @Override
     public void refund(double amount) {
         System.out.println("Processing credit card refund of $" + amount);
     }
 }
 
-// UpiPayment implements Payment.
-// Therefore, it must implement the pay() method.
+/**
+ * UpiPayment implements Payment.
+ *
+ * Therefore, it must implement the pay() method.
+ */
 class UpiPayment implements Payment {
+
+    /**
+     * Implementation of the pay() method
+     * defined in Payment.
+     */
     @Override
     public void pay(double amount) {
         System.out.println("Processing UPI payment of $" + amount);
     }
 
-    // Overriding the default generateReceipt() method
-    // provided by the Payment interface.
-    //
-    // UPI has its own receipt implementation,
-    // so it replaces the default implementation.
+    /**
+     * Overriding the default generateReceipt() method
+     * provided by the Payment interface.
+     *
+     * UPI has its own receipt implementation,
+     * so it replaces the default implementation.
+     */
     @Override
     public void generateReceipt(double amount) {
         System.out.println("UPI Payment amount $" + amount);
@@ -171,34 +212,48 @@ class UpiPayment implements Payment {
 }
 
 public class Interface {
+
     public static void main(String[] args) {
+
         CreditCardPayment creditCardPayment = new CreditCardPayment();
+
         creditCardPayment.authenticate();
         creditCardPayment.pay(500.0);
+
         Payment.paymentInfo();
+
         creditCardPayment.generateReceipt(500.0);
 
         System.out.println("\nRequested payment refund of $100.0");
+
         creditCardPayment.refund(100.0);
 
         System.out.println("========================================");
 
-        // Upcasting:
-        // A parent interface reference points to a child class object.
-        //
-        // Reference type → Payment
-        // Object type → UpiPayment
+        /**
+         * Upcasting:
+         *
+         * A parent interface reference points to a child class object.
+         *
+         * Reference type → Payment
+         * Object type → UpiPayment
+         */
         Payment upiPayment = new UpiPayment();
 
-        // Runtime polymorphism:
-        // The overridden method that gets executed is determined
-        // at runtime based on the actual object type.
-        //
-        // Here, UpiPayment's implementation of pay() is executed.
+        /**
+         * Runtime polymorphism:
+         *
+         * The overridden method that gets executed is determined
+         * at runtime based on the actual object type.
+         *
+         * Here, UpiPayment's implementation of pay() is executed.
+         */
         upiPayment.pay(200.0);
 
-        // UpiPayment has overridden the default generateReceipt()
-        // method from Payment, so UpiPayment's version is executed.
+        /**
+         * UpiPayment has overridden the default generateReceipt()
+         * method from Payment, so UpiPayment's version is executed.
+         */
         upiPayment.generateReceipt(200.0);
     }
 }
