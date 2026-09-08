@@ -18,6 +18,9 @@ package designpattern.creational;
  * - Easy to accidentally pass arguments in the wrong order
  * 
  * 
+ * Solution
+ * - Put construction steps on a Builder that returns itself after each call. 
+ * 
  */
 
 /**

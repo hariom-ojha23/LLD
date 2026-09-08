@@ -129,7 +129,7 @@ class DoubleCheckLockSingleton {
  * 
  */
 class EagerSingleton {
-    private static EagerSingleton instance = new EagerSingleton();
+    private static final EagerSingleton instance = new EagerSingleton();
 
     private EagerSingleton() {
     }
