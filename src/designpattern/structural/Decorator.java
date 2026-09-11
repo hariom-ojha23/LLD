@@ -10,8 +10,16 @@ package designpattern.structural;
  * Decorator uses composition to wrap an object and add new behaviour
  * while maintaining the same interface.
  *
- * The decorator implements the same interface as the wrapped object
- * and delegates the original operation to it.
+ *
+ * Key relationship:
+ *
+ * Abstract Decorator IS-A Component
+ * - Decorator implements the same interface as the wrapped object.
+ *
+ * Abstract Decorator HAS-A Component
+ * - Decorator contains a reference to the wrapped object.
+ * - protected ApiClient client
+ *
  *
  * Decorator = Wrap an object to add behaviour dynamically
  * without modifying the original object.
@@ -24,6 +32,26 @@ package designpattern.structural;
  * File Storage   → Encryption, compression, logging
  * Notification   → Retry, logging, metrics
  * Pricing        → Discount, coupon, tax, membership benefits
+ * 
+ * 
+ * BENEFITS
+ *
+ * - Adds behaviour dynamically at runtime.
+ * - Follows the Open/Closed Principle.
+ * - Avoids creating many subclasses for different combinations of behaviour.
+ * - Uses composition instead of relying heavily on inheritance.
+ * - Decorators can be combined and chained in different ways.
+ * - Each decorator has a single, focused responsibility.
+ * - Existing classes do not need to be modified to add new behaviour.
+ *
+ *
+ * DRAWBACKS
+ *
+ * - Can create many small decorator classes.
+ * - Multiple decorators can make the object structure difficult to understand.
+ * - The order of decorators can affect the final behaviour.
+ * - Debugging can be harder because a method call passes through multiple layers.
+ * - Creating decorators can add complexity for simple use cases.
  *
  */
 
