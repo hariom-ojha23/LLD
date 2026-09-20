@@ -1,4 +1,4 @@
-package designpattern.structural;
+package designpattern.structural.adapter;
 
 /**
  * 

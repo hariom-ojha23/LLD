@@ -1,4 +1,4 @@
-package designpattern.structural;
+package designpattern.structural.decorator;
 
 /**
  *
@@ -27,11 +27,11 @@ package designpattern.structural;
  *
  * Real-world examples:
  *
- * API Client     → Retry, caching, logging, metrics, authentication
- * Payment        → Retry, fraud check, logging, metrics
- * File Storage   → Encryption, compression, logging
- * Notification   → Retry, logging, metrics
- * Pricing        → Discount, coupon, tax, membership benefits
+ * API Client → Retry, caching, logging, metrics, authentication
+ * Payment → Retry, fraud check, logging, metrics
+ * File Storage → Encryption, compression, logging
+ * Notification → Retry, logging, metrics
+ * Pricing → Discount, coupon, tax, membership benefits
  * 
  * 
  * BENEFITS
@@ -50,7 +50,8 @@ package designpattern.structural;
  * - Can create many small decorator classes.
  * - Multiple decorators can make the object structure difficult to understand.
  * - The order of decorators can affect the final behaviour.
- * - Debugging can be harder because a method call passes through multiple layers.
+ * - Debugging can be harder because a method call passes through multiple
+ * layers.
  * - Creating decorators can add complexity for simple use cases.
  *
  */
