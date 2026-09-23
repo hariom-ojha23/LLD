@@ -1,12 +1,8 @@
 package assignments.behavioral.smartordersystem;
 
-import assignments.behavioral.smartordersystem.chainofresponsibility.BotHandler;
-import assignments.behavioral.smartordersystem.chainofresponsibility.ExecutiveHandler;
-import assignments.behavioral.smartordersystem.chainofresponsibility.ManagerHandler;
-import assignments.behavioral.smartordersystem.chainofresponsibility.SupportHandler;
 import assignments.behavioral.smartordersystem.enums.SupportRequestType;
+import assignments.behavioral.smartordersystem.facade.SmartOrderSystemFacade;
 import assignments.behavioral.smartordersystem.interfaces.OrderObserver;
-import assignments.behavioral.smartordersystem.models.Order;
 import assignments.behavioral.smartordersystem.models.User;
 import assignments.behavioral.smartordersystem.observer.DeliveryApp;
 import assignments.behavioral.smartordersystem.observer.RestaurantApp;
@@ -27,59 +23,37 @@ public class SmartOrderSystem {
         OrderObserver restaurantApp = new RestaurantApp(new EmailNotification());
         OrderObserver deliveryApp = new DeliveryApp(new SmsNotification());
 
-        /**
-         * Created ne order
-         */
-        Order order = new Order();
+        SmartOrderSystemFacade system = new SmartOrderSystemFacade();
 
-        /**
-         * Adding observers for the order
-         */
-        order.addObserver(userApp);
-        order.addObserver(restaurantApp);
-        order.addObserver(deliveryApp);
+        system.createOrder();
 
+        system.addOrderObserver(userApp);
+        system.addOrderObserver(restaurantApp);
+        system.addOrderObserver(deliveryApp);
+
+        system.confirmOrder();
         System.out.println("");
 
-        /**
-         * Changing order state
-         */
-        order.confirm();
+        system.prepareOrder();
         System.out.println("");
 
-        order.preparing();
+        system.orderOutForDelivery();
         System.out.println("");
 
-        order.outForDelivery();
+        system.deliverOrder();
         System.out.println("");
-
-        order.delivered();
-        System.out.println("");
-
-        /**
-         * Support request
-         */
-        SupportHandler botHandler = new BotHandler();
-        SupportHandler managerHandler = new ManagerHandler();
-        SupportHandler executivHandler = new ExecutiveHandler();
-
-        /**
-         * Setting handlers chain
-         */
-        botHandler.setNextSupportHandler(executivHandler);
-        executivHandler.setNextSupportHandler(managerHandler);
 
         try {
-            botHandler.handleRequest(SupportRequestType.ORDER, "Order query");
+            system.handleSupportRequest(SupportRequestType.ORDER, "Order query");
             System.out.println("");
 
-            botHandler.handleRequest(SupportRequestType.PAYMENT, "Payment query");
+            system.handleSupportRequest(SupportRequestType.PAYMENT, "Payment query");
             System.out.println("");
 
-            botHandler.handleRequest(SupportRequestType.REFUND, "Refund query");
+            system.handleSupportRequest(SupportRequestType.REFUND, "Refund query");
             System.out.println("");
 
-            botHandler.handleRequest(null, "Refund query");
+            system.handleSupportRequest(null, "Refund query");
             System.out.println("");
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
