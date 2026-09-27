@@ -26,6 +26,6 @@ public class EmailLogDecorator implements EmailNotification {
         String successLog = String.format("To: %s\nSubject: %s\nMessage: %s", request.getTo(), request.getSubject(),
                 request.getMessage());
 
-        System.out.println(successLog);
+        System.out.println(successLog + '\n');
     }
 }

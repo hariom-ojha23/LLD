@@ -23,6 +23,6 @@ public class PushLogDecorator implements PushNotification {
 
         notifier.sendNotification(request);
 
-        System.out.println("Message: " + request.getMessage());
+        System.out.println("Message: " + request.getMessage() + '\n');
     }
 }

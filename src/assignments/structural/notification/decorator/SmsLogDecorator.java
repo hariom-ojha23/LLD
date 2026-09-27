@@ -26,6 +26,6 @@ public class SmsLogDecorator implements SmsNotification {
         String successLog = String.format("Mobile Number: (%s)\nMessage: %s", request.getTo(),
                 request.getMessage());
 
-        System.out.println(successLog);
+        System.out.println(successLog + '\n');
     }
 }
