@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.EmailNotification;
 
 public class EmailRetryDecorator implements EmailNotification {
@@ -11,10 +12,10 @@ public class EmailRetryDecorator implements EmailNotification {
         this.maxRetries = maxRetries;
     }
 
-    public void sendNotification(String to, String subject, String message) {
+    public void sendNotification(NotificationRequest request) {
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
-                this.notifer.sendNotification(to, subject, message);
+                this.notifer.sendNotification(request);
                 return;
             } catch (Exception e) {
                 System.out.println("Attempt " + attempt + ": failed");

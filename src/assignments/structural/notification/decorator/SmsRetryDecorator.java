@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.SmsNotification;
 
 public class SmsRetryDecorator implements SmsNotification {
@@ -11,11 +12,11 @@ public class SmsRetryDecorator implements SmsNotification {
         this.maxRetries = maxRetries;
     }
 
-    public void sendNotification(String mobileNumber, String message) {
+    public void sendNotification(NotificationRequest request) {
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 if (attempt == 3) {
-                    this.notifer.sendNotification(mobileNumber, message);
+                    this.notifer.sendNotification(request);
                     return;
                 }
 

@@ -1,5 +1,6 @@
 package assignments.structural.notification.adapter;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.SmsNotification;
 import assignments.structural.notification.notificationapis.SmsNotificationApi;
 
@@ -18,7 +19,7 @@ public class SmsAdapter implements SmsNotification {
         this.smsService = smsService;
     }
 
-    public void sendNotification(String mobileNumber, String message) {
-        smsService.sendSmsNotification(mobileNumber, message);
+    public void sendNotification(NotificationRequest request) {
+        smsService.sendSmsNotification(request.getTo(), request.getMessage());
     }
 }

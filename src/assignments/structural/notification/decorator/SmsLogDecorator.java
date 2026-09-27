@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.SmsNotification;
 
 /**
@@ -17,13 +18,14 @@ public class SmsLogDecorator implements SmsNotification {
         notifier = smsNotifier;
     }
 
-    public void sendNotification(String mobileNumber, String message) {
+    public void sendNotification(NotificationRequest request) {
         System.out.println("Sending sms notification");
 
-        notifier.sendNotification(mobileNumber, message);
+        notifier.sendNotification(request);
 
-        String successLog = String.format("Mobile Number: (%s)\nMessage: %s", mobileNumber, message);
+        String successLog = String.format("Mobile Number: (%s)\nMessage: %s", request.getTo(),
+                request.getMessage());
+
         System.out.println(successLog);
-
     }
 }

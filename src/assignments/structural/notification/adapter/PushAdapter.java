@@ -1,5 +1,6 @@
 package assignments.structural.notification.adapter;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.PushNotification;
 import assignments.structural.notification.notificationapis.PushNotificationApi;
 
@@ -17,7 +18,7 @@ public class PushAdapter implements PushNotification {
         this.pushService = pushService;
     }
 
-    public void sendNotification(String message) {
-        pushService.sendPushNotification(message);
+    public void sendNotification(NotificationRequest request) {
+        pushService.sendPushNotification(request.getMessage());
     }
 }

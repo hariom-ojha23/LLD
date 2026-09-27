@@ -1,5 +1,7 @@
 package assignments.structural.notification.interfaces;
 
+import assignments.structural.notification.builder.NotificationRequest;
+
 public interface EmailNotification {
-    public void sendNotification(String to, String subject, String message);
+    public void sendNotification(NotificationRequest request);
 }

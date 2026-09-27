@@ -1,5 +1,6 @@
 package assignments.structural.notification.adapter;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.EmailNotification;
 import assignments.structural.notification.notificationapis.EmailNotificationApi;
 
@@ -18,7 +19,7 @@ public class EmailAdapter implements EmailNotification {
         this.notificationService = notificationService;
     }
 
-    public void sendNotification(String to, String subject, String message) {
-        notificationService.sendEmailNotification(to, subject, message);
+    public void sendNotification(NotificationRequest request) {
+        notificationService.sendEmailNotification(request.getTo(), request.getSubject(), request.getMessage());
     }
 }

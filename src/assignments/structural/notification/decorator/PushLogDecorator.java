@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.PushNotification;
 
 /**
@@ -17,11 +18,11 @@ public class PushLogDecorator implements PushNotification {
         notifier = pushNotifier;
     }
 
-    public void sendNotification(String message) {
+    public void sendNotification(NotificationRequest request) {
         System.out.println("Sending push notification");
 
-        notifier.sendNotification(message);
+        notifier.sendNotification(request);
 
-        System.out.println("Message: " + message);
+        System.out.println("Message: " + request.getMessage());
     }
 }

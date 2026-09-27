@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.EmailNotification;
 
 /**
@@ -17,12 +18,14 @@ public class EmailLogDecorator implements EmailNotification {
         notifier = emailNotifier;
     }
 
-    public void sendNotification(String to, String subject, String message) {
+    public void sendNotification(NotificationRequest request) {
         System.out.println("Sending email notification");
 
-        this.notifier.sendNotification(to, subject, message);
+        this.notifier.sendNotification(request);
 
-        String successLog = String.format("To: %s\nSubject: %s\nMessage: %s", to, subject, message);
+        String successLog = String.format("To: %s\nSubject: %s\nMessage: %s", request.getTo(), request.getSubject(),
+                request.getMessage());
+
         System.out.println(successLog);
     }
 }

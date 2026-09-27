@@ -1,5 +1,6 @@
 package assignments.structural.notification.decorator;
 
+import assignments.structural.notification.builder.NotificationRequest;
 import assignments.structural.notification.interfaces.PushNotification;
 
 public class PushRetryDecorator implements PushNotification {
@@ -11,14 +12,14 @@ public class PushRetryDecorator implements PushNotification {
         this.maxRetries = maxRetries;
     }
 
-    public void sendNotification(String message) {
+    public void sendNotification(NotificationRequest request) {
         for (int attempt = 1; attempt <= maxRetries; attempt++) {
             try {
                 if (attempt == 1) {
                     throw new RuntimeException("Attempt failed");
                 }
 
-                this.notifer.sendNotification(message);
+                this.notifer.sendNotification(request);
                 return;
             } catch (Exception e) {
                 System.out.println("Attempt " + attempt + ": failed");
