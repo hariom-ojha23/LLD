@@ -302,6 +302,14 @@ class ParkingLot {
     public void setPaymentService(PaymentService paymentService) {
         this.paymentService = paymentService;
     }
+
+    public List<EntryGate> getEntryGates() {
+        return entryGates;
+    }
+
+    public List<ExitGate> getExitGates() {
+        return exitGates;
+    }
 }
 
 /**
