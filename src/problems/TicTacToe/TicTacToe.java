@@ -1,4 +1,4 @@
-package problems;
+package problems.TicTacToe;
 
 import java.util.ArrayList;
 import java.util.Collections;

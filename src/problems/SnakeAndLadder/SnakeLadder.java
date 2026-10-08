@@ -1,4 +1,4 @@
-package problems;
+package problems.SnakeAndLadder;
 
 import java.util.ArrayList;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package problems;
+package problems.ParkingSystem;
 
 import java.time.LocalDateTime;
 import java.time.Duration;

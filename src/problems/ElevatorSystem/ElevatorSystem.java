@@ -1,4 +1,4 @@
-package problems;
+package problems.ElevatorSystem;
 
 import java.util.ArrayList;
 import java.util.Comparator;
