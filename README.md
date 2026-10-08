@@ -15,8 +15,12 @@ LLD/
 │   └── multithreading/
 │
 ├── src/
-│   ├── oops/
+│   ├── assignments/
+│   └── concurrency/
+│   └── designpatterns/
+│   └── oops/
 │   └── solid/
+│   └── problems/
 │
 ├── .gitignore
 └── README.md
