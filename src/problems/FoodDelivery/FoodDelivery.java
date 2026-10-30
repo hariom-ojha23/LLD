@@ -130,7 +130,7 @@ class Cart implements PriceComponent {
         double totalAmount = 0;
 
         for (MenuItem menuItem : menuItems) {
-            totalAmount += menuItem.price();
+            totalAmount += menuItem.getPrice();
         }
 
         return totalAmount;
@@ -200,7 +200,29 @@ class Customer {
     }
 }
 
-record MenuItem(String name, double price) {
+class MenuItem {
+    public static int nextCode;
+    private final String code;
+    private final String name;
+    private final double price;
+
+    public MenuItem(String name, double price) {
+        this.code = "ITEM-" + ++nextCode;
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
 
 abstract class Order {
@@ -389,6 +411,21 @@ class Restaurant {
     public void addMenuItem(MenuItem menuItem) {
         this.menu.add(menuItem);
     }
+
+    public List<MenuItem> getMenu() {
+        return menu;
+    }
+
+    public void showMenu() {
+        System.out.println("Menu: ");
+
+        for (MenuItem menuItem : menu) {
+            System.out.println(
+                    "Code: " + menuItem.getCode() + " Name: " + menuItem.getName() + " Price: " + menuItem.getPrice()
+            );
+        }
+        System.out.println();
+    }
 }
 
 
@@ -480,6 +517,8 @@ class OrderFacade {
     }
 
     private void initializeRestaurants() {
+        MenuItem.nextCode = 0;
+
         Restaurant restaurant1 = new Restaurant("Brown Bakers & Restaurant", "Mayur Vihar, Delhi");
         restaurant1.addMenuItem(new MenuItem("Pav Bhaji", 120.00));
         restaurant1.addMenuItem(new MenuItem("Paneer Dum Biryani", 140.00));
@@ -506,16 +545,28 @@ class OrderFacade {
 
     public void selectRestaurant(Customer customer, Restaurant restaurant) {
         customer.getCart().setRestaurant(restaurant);
+        System.out.println("Selected restaurant: " + restaurant.getName() + "\n");
     }
 
-    public void addToCart(Customer customer, MenuItem menuItem) {
-        if (customer.getCart().getRestaurant() == null) {
+    public void addToCart(Customer customer, String itemCode) {
+        Restaurant restaurant = customer.getCart().getRestaurant();
+
+        if (restaurant == null) {
             System.out.println("First select a restaurant");
             return;
         }
-        customer.getCart().addItemInCart(menuItem);
+
+        for (MenuItem menuItem : restaurant.getMenu()) {
+            if (menuItem.getCode().equals(itemCode)) {
+                System.out.println("Added " + menuItem.getName() + " in cart");
+                customer.getCart().addItemInCart(menuItem);
+            }
+        }
     }
 
+    public void showRestaurantMenu(Restaurant restaurant) {
+        restaurant.showMenu();
+    }
 
     public Order placeDeliveryOrder(Customer customer) {
         return placeOrder(customer, new OrderDeliveryFactory());
@@ -529,6 +580,7 @@ class OrderFacade {
             Customer customer,
             OrderFactory factory
     ) {
+        System.out.println("\nPlacing order....\n");
         // verify cart is not empty
         if (customer.getCart().isEmpty()) {
             System.out.println("Cannot place order. Cart is empty");
@@ -565,11 +617,11 @@ class OrderFacade {
     private void notifyCustomer(List<NotificationStrategy> strategies, Order order) {
         NotificationService notificationService = new NotificationService();
 
-        String orderItems = "\n";
+        StringBuilder orderItems = new StringBuilder("\n");
 
         for (MenuItem item : order.getOrderItems()) {
-            orderItems += "Name: " + item.name() + " Price: " + item.price();
-            orderItems += "\n";
+            orderItems.append("Name: ").append(item.getName()).append(" Price: ").append(item.getPrice());
+            orderItems.append("\n");
         }
 
         String message = """
@@ -583,7 +635,7 @@ class OrderFacade {
         Thank you for ordering!
         """.formatted(
                 order.getRestaurant().getName(),
-                orderItems,
+                orderItems.toString(),
                 order.getTotal(),
                 order.getType()
         );
@@ -607,6 +659,8 @@ public class FoodDelivery {
 
         customer.setNotificationStrategies(List.of(new NotificationEmail()));
 
+        System.out.println();
+
         // Search restaurant
         List<Restaurant> restaurants = facade.searchRestaurant("Mayur Vihar, Delhi");
 
@@ -614,10 +668,11 @@ public class FoodDelivery {
 
         // Select restaurant
         facade.selectRestaurant(customer, restaurant);
+        restaurant.showMenu();
 
         // Add items to cart
-        facade.addToCart(customer, new MenuItem("Pav Bhaji", 120));
-        facade.addToCart(customer, new MenuItem("Paneer Dum Biryani", 140));
+        facade.addToCart(customer, "ITEM-1");
+        facade.addToCart(customer, "ITEM-2");
 
         // Place order
         Order order = facade.placeDeliveryOrder(customer);
